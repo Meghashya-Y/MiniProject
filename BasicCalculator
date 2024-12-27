@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    char operator;
+    double num1, num2, result;
+
+    printf("\nEnter an operator (+, -, *, /, %, ^, √, s (sin), c (cos), t (tan)) : ");
+    scanf(" %c", &operator); 
+    if (operator == '√') {
+        printf("Enter a number: ");
+        scanf("%lf", &num1);
+        if (num1 >= 0) {
+            result = sqrt(num1);
+            printf("\nresult: %.2lf", result);
+        } else {
+            printf("\nError! Square root of a negative number is not real.");
+        }
+    } else if (operator == 's' || operator == 'c' || operator == 't') {
+        printf("Enter a number (in degrees): ");
+        scanf("%lf", &num1);
+        double radians = num1 * M_PI / 180.0; 
+        if (operator == 's') {
+            result = sin(radians);
+            printf("\nsin(%.2lf) = %.2lf", num1, result);
+        } else if (operator == 'c') {
+            result = cos(radians);
+            printf("\ncos(%.2lf) = %.2lf", num1, result);
+        } else if (operator == 't') {
+            if (fmod(num1, 90) == 0 && fmod(num1 / 90, 2) == 1) {
+                printf("\nError! tan(%.2lf) is undefined.", num1);
+            } else {
+                result = tan(radians);
+                printf("\ntan(%.2lf) = %.2lf", num1, result);
+            }
+        }
+    } else {
+        printf("Enter number 1: ");
+        scanf("%lf", &num1);
+
+        printf("Enter number 2: ");
+        scanf("%lf", &num2);
+
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                printf("\nresult: %.2lf", result);
+                break;
+            case '-':
+                result = num1 - num2;
+                printf("\nresult: %.2lf", result);
+                break;
+            case '*':
+                result = num1 * num2;
+                printf("\nresult: %.2lf", result);
+                break;
+            case '/':
+                if (num2 != 0) {
+                    result = num1 / num2;
+                    printf("\nresult: %.2lf", result);
+                } else {
+                    printf("\nError! Division by zero.");
+                }
+                break;
+            case '%':
+                if ((int)num1 == num1 && (int)num2 == num2) { 
+                    printf("\nresult: %d", (int)num1 % (int)num2);
+                } else {
+                    printf("\nError! Modulus operator works only with integers.");
+                }
+                break;
+            case '^':
+                result = pow(num1, num2);
+                printf("\nresult: %.2lf", result);
+                break;
+            default:
+                printf("\nError! '%c' is not a valid operator.", operator);
+        }
+    }
+
+    return 0;
+}
